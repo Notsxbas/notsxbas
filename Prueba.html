@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Panel de Administración</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin: 20px 0;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .btn {
+            background: linear-gradient(45deg, #4285f4, #34a853);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .btn i {
+            font-size: 18px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .feature-card i {
+            font-size: 3rem;
+            color: #4285f4;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .feature-card p {
+            color: #666;
+        }
+        .login-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .login-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #4285f4, #34a853);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="hero">
+        <h1>Panel de Administración</h1>
+        <p>Bienvenido a tu centro de control. Gestiona usuarios, accede a juegos y más.</p>
+        <div class="buttons">
+            <a href="juegos.html" class="btn">
+                <i class="fas fa-gamepad"></i>
+                Ver Juegos
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Seguridad Avanzada</h3>
+                <p>Protección de datos y autenticación segura para todos los usuarios.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Panel de Control</h3>
+                <p>Monitorea el rendimiento y gestiona recursos de manera eficiente.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users-cog"></i>
+                <h3>Gestión de Usuarios</h3>
+                <p>Administra cuentas de usuario, permisos y actividades.</p>
+            </div>
+        </div>
+
+        <div class="login-section">
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario o Email:</label>
+                    <input type="text" id="username" name="username" required placeholder="Ingresa tu usuario o email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
+                </div>
+                <button type="submit" class="login-btn">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Usuario predeterminado: sebastian / paneladmin
+            if (username === 'sebastian' && password === 'paneladmin') {
+                // Obtener IP del usuario
+                try {
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    const userIP = data.ip;
+
+                    // Registrar el intento de login exitoso con IP
+                    const loginHistory = JSON.parse(localStorage.getItem('loginHistory')) || [];
+                    loginHistory.push({
+                        username: username,
+                        timestamp: new Date().toISOString(),
+                        ip: userIP,
+                        status: 'success'
+                    });
+
+                    // Mantener solo los últimos 50 registros
+                    if (loginHistory.length > 50) {
+                        loginHistory.shift();
+                    }
+
+                    localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
+
+                    alert('Inicio de sesión exitoso! Bienvenido Sebastian\nIP registrada: ' + userIP);
+                    window.location.href = 'usuarios.html';
+                } catch (error) {
+                    console.error('Error obteniendo IP:', error);
+                    alert('Inicio de sesión exitoso! Bienvenido Sebastian\n(No se pudo obtener la IP)');
+                    window.location.href = 'usuarios.html';
+                }
+            } else {
+                // Registrar intento fallido
+                const loginHistory = JSON.parse(localStorage.getItem('loginHistory')) || [];
+                loginHistory.push({
+                    username: username,
+                    timestamp: new Date().toISOString(),
+                    ip: 'Desconocida',
+                    status: 'failed'
+                });
+
+                if (loginHistory.length > 50) {
+                    loginHistory.shift();
+                }
+
+                localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
+                alert('Usuario o contraseña incorrectos');
+            }
+        });
+    </script>
+</body>
+</html>

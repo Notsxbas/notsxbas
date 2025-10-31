@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos Disponibles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #2d1b69 100%);
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 20, 147, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+            background-size: 300px 300px, 400px 400px, 200px 200px;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="30" cy="70" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="70" cy="20" r="1.5" fill="rgba(255,255,255,0.25)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            background-size: 150px 150px;
+            animation: twinkle 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes twinkle {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        .container {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95) 0%, rgba(40, 20, 60, 0.95) 100%);
+            border: 3px solid #8a2be2;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(138, 43, 226, 0.5), inset 0 0 60px rgba(138, 43, 226, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            margin: 50px auto;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: conic-gradient(from 0deg, transparent, rgba(138, 43, 226, 0.3), rgba(255, 20, 147, 0.3), transparent);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            color: #ff1493;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px #ff1493, 0 0 40px #ff1493;
+            font-size: 3rem;
+            font-weight: bold;
+            position: relative;
+        }
+        h1::after {
+            content: '⚡';
+            animation: blink 1.5s infinite;
+            color: #00ffff;
+            margin-left: 10px;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        .search-bar {
+            margin-bottom: 40px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 20px 50px 20px 20px;
+            border: 3px solid #8a2be2;
+            border-radius: 15px;
+            background: rgba(138, 43, 226, 0.1);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 0 5px rgba(255, 20, 147, 0.3);
+            background: rgba(255, 20, 147, 0.1);
+        }
+        .search-bar input::placeholder {
+            color: rgba(224, 224, 224, 0.6);
+        }
+        .search-bar input::after {
+            content: '🔍';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8a2be2;
+            font-size: 20px;
+            pointer-events: none;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .filters select {
+            padding: 15px 20px;
+            border: 3px solid #8a2be2;
+            border-radius: 10px;
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.2), rgba(255, 20, 147, 0.2));
+            color: #e0e0e0;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(138, 43, 226, 0.2);
+        }
+        .filters select:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.3);
+        }
+        .filters select::before {
+            content: '🎮';
+            margin-right: 10px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .clear-btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: #fff;
+            border: 2px solid #ff1493;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+        .clear-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.6);
+        }
+        .clear-btn::before {
+            content: '🗑️ ';
+        }
+        .sort-select {
+            padding: 15px 20px;
+            border: 3px solid #8a2be2;
+            border-radius: 10px;
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.2), rgba(255, 20, 147, 0.2));
+            color: #e0e0e0;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(138, 43, 226, 0.2);
+        }
+        .sort-select:focus {
+            outline: none;
+            border-color: #ff1493;
+        }
+        .sort-select::before {
+            content: '🔀 ';
+        }
+        .letter-filter {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 15px 0;
+        }
+        .letter-btn {
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.3), rgba(255, 20, 147, 0.3));
+            border: 2px solid #8a2be2;
+            color: #e0e0e0;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 50px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(138, 43, 226, 0.3);
+        }
+        .letter-btn:hover, .letter-btn.active {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            border-color: #ff1493;
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5);
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        .game-card {
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.9) 0%, rgba(50, 30, 70, 0.9) 100%);
+            border: 2px solid #8a2be2;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4), inset 0 0 30px rgba(138, 43, 226, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 120%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        .game-card:hover::before {
+            left: 120%;
+        }
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(138, 43, 226, 0.7), inset 0 0 50px rgba(138, 43, 226, 0.2);
+        }
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #8a2be2, #ff1493);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #fff;
+            text-shadow: 0 0 10px #fff;
+        }
+        .game-card h3 {
+            color: #ff1493;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff1493;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .game-genre {
+            color: #00ffff;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px #00ffff;
+            font-weight: 500;
+        }
+        .game-card p {
+            color: #e0e0e0;
+            text-shadow: 0 0 3px #e0e0e0;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .stars {
+            color: #ffd700;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .rating-text {
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+        .game-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+        }
+        .game-btn {
+            background: linear-gradient(45deg, #00ffff, #00bfff);
+            color: #000;
+            border: 2px solid #00ffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            box-shadow: 0 5px 10px rgba(0, 255, 255, 0.3);
+        }
+        .game-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.5);
+        }
+        .game-btn.download::before {
+            content: '⬇️ ';
+        }
+        .game-btn.requirements::before {
+            content: 'ℹ️ ';
+        }
+        .favorite-btn {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            border: 2px solid #ff1493;
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(255, 20, 147, 0.3);
+        }
+        .favorite-btn:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5);
+        }
+        .favorite-btn::before {
+            content: '❤️ ';
+        }
+        .requirements {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px solid #8a2be2;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: block;
+        }
+        .requirements h4 {
+            color: #ff1493;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff1493;
+            font-size: 18px;
+        }
+        .requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+        .requirements li {
+            color: #e0e0e0;
+            font-size: 14px;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .requirements li::before {
+            content: '▶';
+            color: #00ffff;
+            position: absolute;
+            left: 0;
+        }
+        .back-link {
+            color: #ff1493;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff1493;
+            transition: all 0.4s ease;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            background: rgba(255, 20, 147, 0.1);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+        }
+        .back-link:hover {
+            text-shadow: 0 0 20px #ff1493;
+            transform: translateX(-5px) scale(1.05);
+            background: rgba(255, 20, 147, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.5);
+        }
+        .back-link::before {
+            content: '🏠 ';
+        }
+        .no-games {
+            color: #ff1493;
+            font-size: 24px;
+            text-shadow: 0 0 10px #ff1493;
+            margin-top: 30px;
+            display: none;
+            font-weight: bold;
+        }
+        .loading {
+            display: none;
+            color: #00ffff;
+            font-size: 20px;
+            text-shadow: 0 0 10px #00ffff;
+            margin-top: 30px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+                margin: 30px auto;
+            }
+            .filters {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .controls {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 20px;
+            }
+            .letter-filter {
+                justify-content: flex-start;
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .game-card {
+                padding: 25px;
+            }
+            .game-image {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Juegos Disponibles</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar juegos...">
+        </div>
+        <div class="filters">
+            <select id="genreFilter">
+                <option value="">Todos los géneros</option>
+                <option value="shooter">Shooter</option>
+                <option value="rpg">RPG</option>
+                <option value="puzzle">Puzzle</option>
+                <option value="action">Acción</option>
+                <option value="simulation">Simulación</option>
+                <option value="carreras">Carreras</option>
+            </select>
+            <select id="yearFilter">
+                <option value="">Todos los años</option>
+                <option value="1990s">1990s</option>
+                <option value="2000s">2000s</option>
+                <option value="2010s">2010s</option>
+                <option value="2020s">2020s</option>
+            </select>
+        </div>
+        <div class="controls">
+            <button class="clear-btn" onclick="clearFilters()">Limpiar Filtros</button>
+            <select id="sortSelect" class="sort-select">
+                <option value="">Ordenar por...</option>
+                <option value="name-asc">Nombre A-Z</option>
+                <option value="name-desc">Nombre Z-A</option>
+                <option value="year-asc">Año Ascendente</option>
+                <option value="year-desc">Año Descendente</option>
+            </select>
+        </div>
+
+        <div class="games-grid" id="gamesGrid">
+            <!-- Juegos se cargarán aquí -->
+        </div>
+        <div class="no-games" id="noGames">No se encontraron juegos que coincidan con los filtros.</div>
+        <br>
+        <a href="Prueba.html" class="back-link">← Volver al Inicio</a>
+    </div>
+
+    <script>
+        const games = [
+            {
+                name: "Quake",
+                genre: "Shooter",
+                year: "1996",
+                description: "Un clásico shooter en primera persona que revolucionó los juegos de acción en 3D.",
+                requirements: ["SO: Windows 95+", "RAM: 16 MB", "CPU: Pentium 90 MHz", "GPU: Compatible con OpenGL"]
+            },
+            {
+                name: "Half-Life",
+                genre: "Shooter",
+                year: "1998",
+                description: "Revolucionario shooter en primera persona con una narrativa inmersiva y puzzles ambientales.",
+                requirements: ["SO: Windows 95+", "RAM: 32 MB", "CPU: Pentium 133 MHz", "GPU: Compatible con OpenGL"]
+            },
+            {
+                name: "Halo: Combat Evolved",
+                genre: "Shooter",
+                year: "2001",
+                description: "Clásico shooter espacial con Master Chief luchando contra alienígenas en una guerra interestelar.",
+                requirements: ["SO: Windows XP+", "RAM: 256 MB", "CPU: Pentium III 733 MHz", "GPU: GeForce 2"]
+            },
+            {
+                name: "Portal",
+                genre: "Puzzle",
+                year: "2007",
+                description: "Juego de puzzles innovador donde usas un portal gun para resolver desafíos lógicos.",
+                requirements: ["SO: Windows XP+", "RAM: 512 MB", "CPU: Pentium 4 3.0 GHz", "GPU: GeForce 6600"]
+            },
+            {
+                name: "The Elder Scrolls V: Skyrim",
+                genre: "RPG",
+                year: "2011",
+                description: "Mundo abierto épico con dragones, magia y libertad total para explorar y crear tu propia aventura.",
+                requirements: ["SO: Windows 7+", "RAM: 2 GB", "CPU: Dual Core", "GPU: GTX 260"]
+            },
+            {
+                name: "Minecraft",
+                genre: "Simulación",
+                year: "2011",
+                description: "Mundo de bloques infinito donde construyes, exploras y sobrevives en un entorno generado proceduralmente.",
+                requirements: ["SO: Windows 7+", "RAM: 2 GB", "CPU: Intel Core i3", "GPU: Intel HD Graphics"]
+            },
+            {
+                name: "God of War",
+                genre: "Acción",
+                year: "2018",
+                description: "Reimaginación del clásico con Kratos y Atreus en una aventura mitológica llena de acción.",
+                requirements: ["SO: Windows 10", "RAM: 8 GB", "CPU: Intel Core i5-2500K", "GPU: GTX 960"]
+            },
+            {
+                name: "Spider-Man",
+                genre: "Acción",
+                year: "2018",
+                description: "Aventura de superhéroe con mecánicas de swing, combate y exploración en Nueva York.",
+                requirements: ["SO: Windows 10", "RAM: 8 GB", "CPU: Intel Core i3-4160", "GPU: GTX 650 Ti"]
+            },
+            {
+                name: "The Last of Us Part II",
+                genre: "Acción",
+                year: "2020",
+                description: "Historia emocional de supervivencia post-apocalíptica con mecánicas de sigilo y combate intenso.",
+                requirements: ["SO: Windows 10", "RAM: 8 GB", "CPU: Intel Core i5-2500K", "GPU: GTX 780"]
+            },
+            {
+                name: "Forza Motorsport",
+                genre: "Carreras",
+                year: "2005",
+                description: "Simulador de carreras realista con física avanzada y una amplia colección de autos.",
+                requirements: ["SO: Windows XP+", "RAM: 512 MB", "CPU: Pentium 4 2.8 GHz", "GPU: GeForce 6800"]
+            },
+            {
+                name: "Gears of War",
+                genre: "Shooter",
+                year: "2006",
+                description: "Shooter en tercera persona con cobertura destructible y una historia de guerra contra gusanos.",
+                requirements: ["SO: Windows XP+", "RAM: 512 MB", "CPU: Pentium 4 2.4 GHz", "GPU: GeForce 6800"]
+            },
+            {
+                name: "Roblox",
+                genre: "Acción",
+                year: "2006",
+                description: "Plataforma multijugador donde los usuarios crean y juegan juegos personalizados.",
+                requirements: ["SO: Windows 7+", "RAM: 1 GB", "CPU: Dual Core", "GPU: Básica"]
+            },
+            {
+                name: "Fortnite",
+                genre: "Acción",
+                year: "2017",
+                description: "Battle royale multijugador con construcción, combate y eventos en vivo.",
+                requirements: ["SO: Windows 7+", "RAM: 4 GB", "CPU: Intel Core i3", "GPU: Intel HD 4000"]
+            },
+            {
+                name: "Doom",
+                genre: "Shooter",
+                year: "2016",
+                description: "Shooter en primera persona con acción frenética y demonios infernales.",
+                requirements: ["SO: Windows 7+", "RAM: 4 GB", "CPU: Intel Core i5", "GPU: GTX 670"]
+            },
+            {
+                name: "The Witcher 3: Wild Hunt",
+                genre: "RPG",
+                year: "2015",
+                description: "RPG épico con caza de monstruos, elecciones morales y un mundo rico.",
+                requirements: ["SO: Windows 7+", "RAM: 6 GB", "CPU: Intel Core i5", "GPU: GTX 660"]
+            },
+            {
+                name: "Grand Theft Auto V",
+                genre: "Acción",
+                year: "2013",
+                description: "Mundo abierto criminal con misiones, robos y libertad total en Los Santos.",
+                requirements: ["SO: Windows 8.1+", "RAM: 4 GB", "CPU: Intel Core 2 Quad", "GPU: GTX 660"]
+            },
+            {
+                name: "Among Us",
+                genre: "Acción",
+                year: "2018",
+                description: "Juego de deducción social multijugador con impostores en una nave espacial.",
+                requirements: ["SO: Windows 7+", "RAM: 1 GB", "CPU: Dual Core", "GPU: Básica"]
+            },
+            {
+                name: "Valorant",
+                genre: "Shooter",
+                year: "2020",
+                description: "Shooter táctico competitivo con agentes con habilidades únicas.",
+                requirements: ["SO: Windows 7+", "RAM: 4 GB", "CPU: Intel Core 2 Duo", "GPU: GTX 1000 series"]
+            },
+            {
+                name: "League of Legends",
+                genre: "Acción",
+                year: "2009",
+                description: "MOBA multijugador con equipos luchando por objetivos en un mapa.",
+                requirements: ["SO: Windows XP+", "RAM: 1 GB", "CPU: Dual Core", "GPU: Básica"]
+            },
+            {
+                name: "Counter-Strike: Global Offensive",
+                genre: "Shooter",
+                year: "2012",
+                description: "Shooter competitivo con modos de bomba y rescate.",
+                requirements: ["SO: Windows XP+", "RAM: 1 GB", "CPU: Dual Core", "GPU: DirectX 9 compatible"]
+            }
+        ];
+
+        function displayGames(gamesToShow) {
+            const gamesGrid = document.getElementById('gamesGrid');
+            const noGames = document.getElementById('noGames');
+            gamesGrid.innerHTML = '';
+
+            if (gamesToShow.length === 0) {
+                noGames.style.display = 'block';
+                return;
+            } else {
+                noGames.style.display = 'none';
+            }
+
+            gamesToShow.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                const randomRating = (Math.random() * 2 + 3).toFixed(1); // Random rating between 3.0 and 5.0
+                const stars = '⭐'.repeat(Math.floor(randomRating)) + (randomRating % 1 >= 0.5 ? '⭐' : '');
+                gameCard.innerHTML = `
+                    <div class="game-image">${game.name.charAt(0)}</div>
+                    <h3>${game.name}</h3>
+                    <div class="game-genre">${game.genre} • ${game.year}</div>
+                    <div class="rating">
+                        <span class="stars">${stars}</span>
+                        <span class="rating-text">${randomRating}/5</span>
+                    </div>
+                    <p>${game.description}</p>
+                    <div class="game-actions">
+                        <button class="favorite-btn" onclick="toggleFavorite('${game.name}', this)">Favorito</button>
+                    </div>
+                    <div class="requirements">
+                        <h4>Requisitos Mínimos:</h4>
+                        <ul>
+                            ${game.requirements.map(req => `<li>${req}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                gamesGrid.appendChild(gameCard);
+            });
+        }
+
+        function showRequirements(button) {
+            const requirements = button.parentElement.nextElementSibling;
+            requirements.classList.toggle('show');
+            button.textContent = requirements.classList.contains('show') ? 'Ocultar Requisitos' : 'Ver Requisitos';
+        }
+
+        function downloadGame(gameName) {
+            alert(`Descargando ${gameName}... (Esta es una simulación)`);
+        }
+
+        function toggleFavorite(gameName, button) {
+            button.classList.toggle('favorited');
+            button.textContent = button.classList.contains('favorited') ? '❤️ Favorito' : 'Favorito';
+        }
+
+        let currentLetterFilter = '';
+
+        function createLetterButtons() {
+            const letterFilter = document.getElementById('letterFilter');
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            letters.forEach(letter => {
+                const button = document.createElement('button');
+                button.className = 'letter-btn';
+                button.textContent = letter;
+                button.onclick = () => filterByLetter(letter);
+                letterFilter.appendChild(button);
+            });
+        }
+
+        function filterByLetter(letter) {
+            currentLetterFilter = letter;
+            document.querySelectorAll('.letter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === letter);
+            });
+            filterGames();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('genreFilter').value = '';
+            document.getElementById('yearFilter').value = '';
+            document.getElementById('sortSelect').value = '';
+            currentLetterFilter = '';
+            document.querySelectorAll('.letter-btn').forEach(btn => btn.classList.remove('active'));
+            filterGames();
+        }
+
+        function filterGames() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const genreFilter = document.getElementById('genreFilter').value.toLowerCase();
+            const yearFilter = document.getElementById('yearFilter').value;
+            const sortOption = document.getElementById('sortSelect').value;
+
+            let filteredGames = games.filter(game =>
+                game.name.toLowerCase().includes(searchTerm) ||
+                game.description.toLowerCase().includes(searchTerm) ||
+                game.genre.toLowerCase().includes(searchTerm)
+            );
+
+            if (genreFilter) {
+                filteredGames = filteredGames.filter(game => game.genre.toLowerCase() === genreFilter);
+            }
+
+            if (yearFilter) {
+                filteredGames = filteredGames.filter(game => {
+                    const gameYear = parseInt(game.year);
+                    if (yearFilter === '1990s') return gameYear >= 1990 && gameYear < 2000;
+                    if (yearFilter === '2000s') return gameYear >= 2000 && gameYear < 2010;
+                    if (yearFilter === '2010s') return gameYear >= 2010 && gameYear < 2020;
+                    if (yearFilter === '2020s') return gameYear >= 2020;
+                    return true;
+                });
+            }
+
+            if (currentLetterFilter) {
+                filteredGames = filteredGames.filter(game => game.name.toLowerCase().startsWith(currentLetterFilter.toLowerCase()));
+            }
+
+            // Sorting
+            if (sortOption === 'name-asc') {
+                filteredGames.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortOption === 'name-desc') {
+                filteredGames.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (sortOption === 'year-asc') {
+                filteredGames.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+            } else if (sortOption === 'year-desc') {
+                filteredGames.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+            }
+
+            displayGames(filteredGames);
+        }
+
+        // Inicializar
+        createLetterButtons();
+        displayGames(games);
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterGames);
+        document.getElementById('genreFilter').addEventListener('change', filterGames);
+        document.getElementById('yearFilter').addEventListener('change', filterGames);
+        document.getElementById('sortSelect').addEventListener('change', filterGames);
+
+        // Log access to games page
+        window.addEventListener('load', async function() {
+            let userIP = 'Desconocida';
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                userIP = data.ip;
+            } catch (error) {
+                console.error('Error obteniendo IP:', error);
+            }
+
+            const gamesHistory = JSON.parse(localStorage.getItem('gamesHistory')) || [];
+            gamesHistory.push({
+                username: 'Usuario Anónimo',
+                game: 'Página de Juegos',
+                timestamp: new Date().toISOString(),
+                ip: userIP
+            });
+
+            // Keep only the last 50 entries
+            if (gamesHistory.length > 50) {
+                gamesHistory.shift();
+            }
+
+            localStorage.setItem('gamesHistory', JSON.stringify(gamesHistory));
+        });
+    </script>
+</body>
+</html>
